@@ -1,0 +1,25 @@
+1.
+SELECT R.rezerwacja_id, K.imie AS klient_imie, K.nazwisko AS klient_nazwisko, P.nazwisko AS pracownik_nazwisko, R.data
+FROM Rezerwacja R
+JOIN Klient K ON R.klient_id = K.klient_id
+JOIN Pracownik P ON R.pracownik_id = P.pracownik_id;
+2.
+SELECT R.rezerwacja_id, AVG(O.ocena) AS srednia_ocena
+FROM Rezerwacja R
+LEFT JOIN Ocena O ON R.rezerwacja_id = O.rezerwacja_id
+GROUP BY R.rezerwacja_id;
+3.
+SELECT K.klient_id, K.imie, K.nazwisko, COUNT(R.rezerwacja_id) AS liczba_rezerwacji
+FROM Klient K
+LEFT JOIN Rezerwacja R ON K.klient_id = R.klient_id
+GROUP BY K.klient_id, K.imie, K.nazwisko;
+4.
+SELECT DISTINCT P.pracownik_id, P.imie, P.nazwisko
+FROM Pracownik P
+JOIN Rezerwacja R ON P.pracownik_id = R.pracownik_id
+WHERE R.data BETWEEN '2024-02-01' AND '2024-02-10';
+5.
+SELECT U.*
+FROM Usluga U
+LEFT JOIN Rezerwacja R ON U.usluga_id = R.usluga_id
+WHERE R.rezerwacja_id IS NULL;
